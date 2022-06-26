@@ -1,5 +1,6 @@
 export const theme = {
   colors: {
-    prymary: "#000000",
+    primary: '#000000',
+    red: 'red',
   },
 };

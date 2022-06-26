@@ -1,0 +1,41 @@
+{
+    "transactions": [
+      {
+        "id": 1,
+        "type": "deposit",
+        "amount": 5000,
+        "created": 1656225673188,
+        "fee": "USD"
+      },
+      {
+        "id": 2,
+        "type": "withdraw",
+        "amount": 3000,
+        "created": 1656225673188,
+        "fee": "USD"
+      },
+      {
+        "id": 3,
+        "type": "deposit",
+        "amount": 7000,
+        "created": 1656225673188,
+        "fee": "UAN"
+      },
+      {
+        "id": 4,
+        "type": "deposit",
+        "amount": 2000,
+        "created": 1656225673188,
+        "fee": "USD"
+      },
+      {
+        "id": 5,
+        "type": "withdraw",
+        "amount": 1000,
+        "created": 1656225673188,
+        "fee": "UAN"
+      }
+    ],
+    "total": 10000
+  }
+  

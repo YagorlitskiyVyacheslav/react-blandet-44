@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { transactionType } from "../../constants/transactionType";
 import { Form } from "./Form/Form";
 
+
 const ButtonsWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -29,6 +30,10 @@ export class TransactionForm extends Component {
     this.setState({
       type: transactionType.DEPOSIT,
     });
+  }
+
+  handleSubmit(transaction) {
+
   }
 
   render() {

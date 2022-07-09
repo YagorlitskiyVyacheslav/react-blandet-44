@@ -6,13 +6,18 @@ import { useEffect, useState } from "react";
 
 function App() {
   const [transactions, setTransactions] = useState([]);
+
   useEffect(() => {
-  setTransactions(mockTransactions.transactions)
-}, [])
+    setTransactions(mockTransactions.transactions);
+  }, []);
+
+  const handleSubmit = (transaction) => {
+    setTransactions([...transactions, transaction]);
+  };
   return (
     <>
       <GlobalStyle />
-      <TransactionForm />
+      <TransactionForm onSubmit={handleSubmit} />
       <TransactionTable transactions={transactions} />
     </>
   );

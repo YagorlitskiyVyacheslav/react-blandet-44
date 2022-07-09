@@ -5,7 +5,6 @@ import styled from "styled-components";
 import { transactionType } from "../../constants/transactionType";
 import { Form } from "./Form/Form";
 
-
 const ButtonsWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -32,10 +31,6 @@ export class TransactionForm extends Component {
     });
   }
 
-  handleSubmit(transaction) {
-
-  }
-
   render() {
     return (
       <Container>
@@ -57,7 +52,7 @@ export class TransactionForm extends Component {
         </ButtonsWrapper>
         {this.state.type && (
           <div>
-            <Form type={this.state.type} />
+            <Form type={this.state.type} onSubmit={this.props.onSubmit} />
           </div>
         )}
       </Container>

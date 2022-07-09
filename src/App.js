@@ -1,12 +1,14 @@
-import { TransactionTable } from './components/TransactionTable/TransactionTable';
-import { TransactionForm } from './components/TransactionForm/TransactionForm'
+import { TransactionTable } from "./components/TransactionTable/TransactionTable";
+import { TransactionForm } from "./components/TransactionForm/TransactionForm";
+import GlobalStyle from "./styleConfig/GlobalStyle";
 
 function App() {
   return (
-    <div className="App">
-      <TransactionTable />
+    <>
+      <GlobalStyle />
       <TransactionForm />
-    </div>
+      <TransactionTable />
+    </>
   );
 }
 

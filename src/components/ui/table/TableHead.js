@@ -1,13 +1,9 @@
-import styled from 'styled-components';
+import { rgba } from "polished";
+import styled from "styled-components";
 
 export const TableHead = styled.thead`
-  border: 1px solid red;
-  /* ${({ theme }) => {
-    console.log(theme.colors.primary);
-
-    return theme.colors.primary;
-  }}; */
+  border-bottom: 3px solid
+    ${({ theme }) => rgba(theme.colors.tertiaryShade, 0.5)};
   padding: 10px;
   height: auto;
-  color: ${({ theme }) => theme.colors.red};
 `;

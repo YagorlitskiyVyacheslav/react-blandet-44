@@ -1,35 +1,54 @@
 import React, { Component } from "react";
 import { Container } from "../ui/Container";
-import { PrimaryButton } from "../ui/buttons"
+import { PrimaryButton, SecondaryButton } from "../ui/buttons";
+import styled from "styled-components";
+
+const ButtonsWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 40px 0;
+`;
 
 export class TransactionForm extends Component {
-    constructor() {
-        super();
-        this.state = {
-            type: null,
-        }
-    }
+  constructor() {
+    super();
+    this.state = {
+      type: null,
+    };
+  }
 
-    clickOnWithdraw() {
-        this.setState({
-            type: "withdraw"
-    })}
+  clickOnWithdraw() {
+    this.setState({
+      type: "withdraw",
+    });
+  }
 
-    clickOnDeposit() {
-        this.setState({
-            type: "deposit"
-        })
-    }
+  clickOnDeposit() {
+    this.setState({
+      type: "deposit",
+    });
+  }
 
-    render() {
-        console.log(this.state);
-        return <Container>
-            <PrimaryButton onClick={() => {
-                this.clickOnWithdraw()
-            }}>Withdraw</PrimaryButton>
-            <PrimaryButton onClick={() => {
-                this.clickOnDeposit()
-            }}>Deposit</PrimaryButton>
-        </Container>
-    }
+  render() {
+    return (
+      <Container>
+        <ButtonsWrapper>
+          <SecondaryButton
+            onClick={() => {
+              this.clickOnWithdraw();
+            }}
+          >
+            Withdraw
+          </SecondaryButton>
+          <PrimaryButton
+            onClick={() => {
+              this.clickOnDeposit();
+            }}
+          >
+            Deposit
+          </PrimaryButton>
+        </ButtonsWrapper>
+      </Container>
+    );
+  }
 }

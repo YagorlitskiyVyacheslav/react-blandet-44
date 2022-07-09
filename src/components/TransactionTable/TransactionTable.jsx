@@ -7,10 +7,9 @@ import {
   TableHeader,
   TableBodyText,
 } from "../ui/table";
-import transactionsData from "../../mock/transactions";
 import { Container } from "../ui/Container";
 
-export const TransactionTable = () => {
+export const TransactionTable = ({transactions}) => {
   return (
     <Container>
       <Table>
@@ -23,7 +22,7 @@ export const TransactionTable = () => {
           </TableHeadRow>
         </TableHead>
         <TableBody>
-          {transactionsData.transactions.map(
+          {transactions.map(
             ({ id, type, amount, created, fee }) => (
               <TableRow type={type} key={id}>
                 <TableBodyText>

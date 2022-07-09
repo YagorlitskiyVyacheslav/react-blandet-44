@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Container } from "../ui/Container";
 import { PrimaryButton, SecondaryButton } from "../ui/buttons";
 import styled from "styled-components";
+import { transactionType } from "../../constants/transactionType";
+import { Form } from "./Form/Form";
 
 const ButtonsWrapper = styled.div`
   display: flex;
@@ -19,13 +21,13 @@ export class TransactionForm extends Component {
 
   clickOnWithdraw() {
     this.setState({
-      type: "withdraw",
+      type: transactionType.WITHDRAW,
     });
   }
 
   clickOnDeposit() {
     this.setState({
-      type: "deposit",
+      type: transactionType.DEPOSIT,
     });
   }
 
@@ -48,6 +50,11 @@ export class TransactionForm extends Component {
             Deposit
           </PrimaryButton>
         </ButtonsWrapper>
+        {this.state.type && (
+          <div>
+            <Form type={this.state.type} />
+          </div>
+        )}
       </Container>
     );
   }

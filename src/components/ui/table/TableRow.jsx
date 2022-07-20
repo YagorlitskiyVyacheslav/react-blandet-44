@@ -1,6 +1,6 @@
 import { rgba } from "polished";
 import styled from "styled-components";
-import { transactionType } from "../../../constants/transactionType";
+import { transactionType } from "constants";
 
 export const TableRow = styled.tr`
   border-bottom: 1px solid ${({ theme }) => theme.colors.tertiaryShade};

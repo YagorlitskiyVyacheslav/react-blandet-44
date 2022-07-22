@@ -1,5 +1,5 @@
-import { TransactionTable } from "./components/TransactionTable/TransactionTable";
-import { TransactionForm } from "./components/TransactionForm/TransactionForm";
+import { TransactionTable } from "./components/TransactionTable";
+import { TransactionForm } from "./components/TransactionForm";
 import GlobalStyle from "./styleConfig/GlobalStyle";
 import mockTransactions from "./mock/transactions";
 import { useEffect, useState } from "react";

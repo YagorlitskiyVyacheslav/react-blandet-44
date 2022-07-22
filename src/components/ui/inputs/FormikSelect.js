@@ -1,4 +1,4 @@
-import Select from 'react-select';
+import Select from "react-select";
 
 export function FormikSelect({ options, field, form }) {
   return (
@@ -6,7 +6,6 @@ export function FormikSelect({ options, field, form }) {
       name={field.name}
       onBlur={field.onBlur}
       onChange={({ value }) => {
-        console.log(value);
         form.setFieldValue(field.name, value);
       }}
       options={options}

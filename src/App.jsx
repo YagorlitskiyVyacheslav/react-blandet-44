@@ -3,8 +3,11 @@ import { TransactionForm } from "./components/TransactionForm";
 import GlobalStyle from "./styleConfig/GlobalStyle";
 import mockTransactions from "./mock/transactions";
 import { useEffect, useState } from "react";
+import { Routes, Route } from "react-router-dom";
+import { SharedLayout } from "layout/SharedLayout";
+import { routes } from "constants";
 
-function App() {
+const App = () => {
   const [transactions, setTransactions] = useState([]);
 
   useEffect(() => {
@@ -14,13 +17,23 @@ function App() {
   const handleSubmit = (transaction) => {
     setTransactions([...transactions, transaction]);
   };
+
   return (
     <>
       <GlobalStyle />
-      <TransactionForm onSubmit={handleSubmit} />
-      <TransactionTable transactions={transactions} />
+      <Routes>
+        <Route path={routes.TRANSACTIONS} element={<SharedLayout />}>
+          <Route
+            index
+            element={<TransactionTable transactions={transactions} />}
+          />
+          <Route
+            path={routes.ADD_TRANSACTION}
+            element={<TransactionForm onSubmit={handleSubmit} />}
+          />
+        </Route>
+      </Routes>
     </>
   );
-}
-
+};
 export default App;

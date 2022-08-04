@@ -1,6 +1,8 @@
 import Select from "react-select";
 
-export function FormikSelect({ options, field, form }) {
+export function FormikSelect({ options, field, form, currencies }) {
+  console.log("options", options);
+  console.log("currencies", currencies);
   return (
     <Select
       name={field.name}

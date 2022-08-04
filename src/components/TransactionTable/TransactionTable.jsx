@@ -32,6 +32,9 @@ export const TransactionTable = ({ transactions }) => {
               <TableBodyText>{fee}</TableBodyText>
             </TableRow>
           ))}
+          <TableHeadRow>
+            <TableBodyText>Total: </TableBodyText>
+          </TableHeadRow>
         </TableBody>
       </Table>
     </Container>

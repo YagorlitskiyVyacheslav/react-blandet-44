@@ -33,14 +33,14 @@ export const Form = ({ onSubmit, type }) => {
 
   return (
     <Formik
-      initialValues={{ amount: "", fee: "", exchangeRate: "" }}
-      onSubmit={(values) => {
-        return onSubmit({
+      initialValues={{ amount: "", fee: "" }}
+      onSubmit={(values) =>
+        onSubmit({
           ...values,
           type,
           created: new Date().getTime(),
-        });
-      }}
+        })
+      }
       validationSchema={validationSchema}
     >
       {({ setFieldValue, values }) => (

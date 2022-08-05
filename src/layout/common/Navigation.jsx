@@ -8,8 +8,21 @@ const NavList = styled.ul`
 `;
 
 const NavItem = styled.li`
+  list-style: none;
   &:not(:last-child) {
     margin-right: 20px;
+  }
+`;
+
+const StyledNavLink = styled(NavLink)`
+  font-size: 18px;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: ${({ theme }) => theme.colors.tertiaryShade2};
+  font-weight: 700;
+  transition-duration: 500ms;
+  &.active {
+    color: ${({ theme }) => theme.colors.primary};
   }
 `;
 
@@ -18,13 +31,15 @@ export const Navigation = () => {
     <nav>
       <NavList>
         <NavItem>
-          <NavLink to={routes.TRANSACTIONS}>Transactions</NavLink>
+          <StyledNavLink to={routes.TRANSACTIONS}>Transactions</StyledNavLink>
         </NavItem>
         <NavItem>
-          <NavLink to={routes.ADD_TRANSACTION}>Add transaction</NavLink>
+          <StyledNavLink to={routes.ADD_TRANSACTION}>
+            Add transaction
+          </StyledNavLink>
         </NavItem>
         <NavItem>
-          <NavLink to={routes.NEWS}>News</NavLink>
+          <StyledNavLink to={routes.NEWS}>News</StyledNavLink>
         </NavItem>
       </NavList>
     </nav>

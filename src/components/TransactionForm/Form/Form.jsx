@@ -6,25 +6,29 @@ import { PrimaryButton } from "components/ui/buttons";
 import { FormikInput } from "components/ui/inputs";
 import { FormikSelect } from "components/ui/inputs/FormikSelect";
 import { Label } from "components/ui/Label";
-import { getCurrency } from "api/currency/getCurrency";
 
 const StyledFormikForm = styled(FormikForm)`
   width: 500px;
   margin: 0 auto;
 `;
 
-export const Form = ({ onSubmit, type }) => {
-  const [currenciesData, setCurrencies] = useState([]);
+const SubmitButton = styled(PrimaryButton)`
+  width: 100%;
+`;
+
+export const Form = ({ onSubmit, type, currenciesData }) => {
+  const [selectOptions, setSelectOptions] = useState([]);
   useEffect(() => {
     const getCurrencyData = async () => {
-      const response = await getCurrency();
-      const convertedResponse = Object.entries(response.data.rates).map(
-        (el) => ({ label: el[0], value: el[1] })
+      setSelectOptions(
+        Object.entries(currenciesData).map((el) => ({
+          label: el[0],
+          value: el[0],
+        }))
       );
-      setCurrencies(convertedResponse);
     };
     getCurrencyData();
-  }, []);
+  }, [currenciesData]);
 
   const validationSchema = yup.object().shape({
     amount: yup.string().required("This field is required"),
@@ -52,10 +56,10 @@ export const Form = ({ onSubmit, type }) => {
             <FormikSelect
               field={{ name: "fee" }}
               form={{ setFieldValue, value: values.fee }}
-              options={currenciesData}
+              options={selectOptions}
             />
           </Label>
-          <PrimaryButton type="submit">Add {type}</PrimaryButton>
+          <SubmitButton type="submit">Add {type}</SubmitButton>
         </StyledFormikForm>
       )}
     </Formik>

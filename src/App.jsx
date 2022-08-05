@@ -8,6 +8,9 @@ import { SharedLayout } from "layout/SharedLayout";
 import { routes } from "constants";
 import { lazy } from "react";
 import { Suspense } from "react";
+import { getCurrency } from "api/currency/getCurrency";
+import { nanoid } from "nanoid";
+import { transactionType } from "constants";
 
 const TransactionPage = lazy(() => import("pages"));
 const AddTransactionPage = lazy(() => import("pages/add-transaction"));
@@ -16,13 +19,43 @@ const News = lazy(() => import("pages/news"));
 
 const App = () => {
   const [transactions, setTransactions] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [currenciesData, setCurrencies] = useState([]);
+
+  useEffect(() => {
+    const getCurrencyData = async () => {
+      const response = await getCurrency();
+      setCurrencies(response.data.rates);
+    };
+    getCurrencyData();
+  }, []);
 
   useEffect(() => {
     setTransactions(mockTransactions.transactions);
-  }, []);
+    setTotal(
+      mockTransactions.transactions.reduce(
+        (acc, item) =>
+          Math.round(
+            acc +
+              (item.type === transactionType.WITHDRAW
+                ? -item.amount / currenciesData[item.fee]
+                : item.amount / currenciesData[item.fee])
+          ),
+        0
+      )
+    );
+  }, [currenciesData]);
 
   const handleSubmit = (transaction) => {
-    setTransactions([...transactions, transaction]);
+    setTransactions([...transactions, { ...transaction, id: nanoid() }]);
+    setTotal(
+      total +
+        Math.round(
+          transaction.type === transactionType.WITHDRAW
+            ? -transaction.amount / currenciesData[transaction.fee]
+            : transaction.amount / currenciesData[transaction.fee]
+        )
+    );
   };
 
   return (
@@ -34,11 +67,18 @@ const App = () => {
           <Route path={routes.TRANSACTIONS} element={<SharedLayout />}>
             <Route
               index
-              element={<TransactionPage transactions={transactions} />}
+              element={
+                <TransactionPage total={total} transactions={transactions} />
+              }
             />
             <Route
               path={routes.ADD_TRANSACTION}
-              element={<AddTransactionPage handleSubmit={handleSubmit} />}
+              element={
+                <AddTransactionPage
+                  currenciesData={currenciesData}
+                  handleSubmit={handleSubmit}
+                />
+              }
             />
             <Route path={routes.NEWS} element={<News />} />
             <Route path="*" element={<NotFoundPage />} />

@@ -1,4 +1,4 @@
 export const currencies = {
-  USD: 'USD',
-  UAN: 'UAN',
+  USD: "USD",
+  UAN: "UAH",
 };

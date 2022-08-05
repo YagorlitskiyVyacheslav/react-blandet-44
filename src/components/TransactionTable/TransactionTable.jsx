@@ -7,12 +7,13 @@ import {
   TableHeader,
   TableBodyText,
 } from "components/ui/table";
-import { Container } from "components/ui/Container";
 import { tableHeaderItems } from "constants";
+import { Card } from "components/ui/Card";
+import { format } from "date-fns";
 
 export const TransactionTable = ({ transactions }) => {
   return (
-    <Container>
+    <Card title="Transactions history">
       <Table>
         <TableHead>
           <TableHeadRow>
@@ -28,12 +29,14 @@ export const TransactionTable = ({ transactions }) => {
                 {type[0].toUpperCase() + type.slice(1)}
               </TableBodyText>
               <TableBodyText>{amount}</TableBodyText>
-              <TableBodyText>{created}</TableBodyText>
+              <TableBodyText>
+                {format(created, "HH:mm; MM-dd-yyyy")}
+              </TableBodyText>
               <TableBodyText>{fee}</TableBodyText>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-    </Container>
+    </Card>
   );
 };

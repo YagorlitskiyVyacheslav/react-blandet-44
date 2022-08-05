@@ -39,5 +39,5 @@ export default {
       fee: currencies.UAN,
     },
   ],
-  total: 10000,
+  total: 0,
 };

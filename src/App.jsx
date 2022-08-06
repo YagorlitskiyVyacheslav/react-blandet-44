@@ -1,7 +1,6 @@
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import GlobalStyle from "./styleConfig/GlobalStyle";
-import mockTransactions from "./mock/transactions";
 import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { SharedLayout } from "layout/SharedLayout";
@@ -9,8 +8,12 @@ import { routes } from "constants";
 import { lazy } from "react";
 import { Suspense } from "react";
 import { getCurrency } from "api/currency/getCurrency";
-import { nanoid } from "nanoid";
 import { transactionType } from "constants";
+import useRedux from "hooks/useRedux";
+import {
+  addTransactions,
+  getTransactions,
+} from "store/transactions/transactions";
 
 const TransactionPage = lazy(() => import("pages"));
 const AddTransactionPage = lazy(() => import("pages/add-transaction"));
@@ -18,10 +21,10 @@ const NotFoundPage = lazy(() => import("pages/404"));
 const News = lazy(() => import("pages/news"));
 
 const App = () => {
-  const [transactions, setTransactions] = useState([]);
+  const [selector, dispatch] = useRedux();
+  const transactions = selector(getTransactions);
   const [total, setTotal] = useState(0);
   const [currenciesData, setCurrencies] = useState(null);
-
 
   useEffect(() => {
     const getCurrencyData = async () => {
@@ -32,22 +35,23 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    setTransactions(mockTransactions.transactions);
-    const reducedTotal = transactions.reduce((acc, { amount, type, fee }) => {
-      return (
-        acc +
-        Math.round(
-          (transactionType.WITHDRAW === type ? -amount : amount) /
-            currenciesData[fee]
-        )
-      );
-    }, 0);
-    setTotal(reducedTotal);
-  }, [currenciesData]);
+    if (currenciesData) {
+      const reducedTotal = transactions.reduce((acc, { amount, type, fee }) => {
+        return (
+          acc +
+          Math.round(
+            (transactionType.WITHDRAW === type ? -amount : amount) /
+              currenciesData[fee]
+          )
+        );
+      }, 0);
+      setTotal(reducedTotal);
+    }
+  }, [currenciesData, transactions]);
 
   const handleSubmit = (transaction) => {
     const { type, amount, fee } = transaction;
-    setTransactions([...transactions, { ...transaction, id: nanoid() }]);
+    dispatch(addTransactions(transaction));
     setTotal(
       total +
         Math.round(

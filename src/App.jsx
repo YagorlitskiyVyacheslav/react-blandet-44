@@ -22,6 +22,7 @@ const App = () => {
   const [total, setTotal] = useState(0);
   const [currenciesData, setCurrencies] = useState(null);
 
+
   useEffect(() => {
     const getCurrencyData = async () => {
       const response = await getCurrency();

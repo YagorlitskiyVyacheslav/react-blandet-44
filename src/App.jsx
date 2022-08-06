@@ -32,30 +32,12 @@ const App = () => {
 
   useEffect(() => {
     setTransactions(mockTransactions.transactions);
-    setTotal(
-      mockTransactions.transactions.reduce(
-        (acc, item) =>
-          Math.round(
-            acc +
-              (item.type === transactionType.WITHDRAW
-                ? -item.amount / currenciesData[item.fee]
-                : item.amount / currenciesData[item.fee])
-          ),
-        0
-      )
-    );
+    setTotal();
   }, [currenciesData]);
 
   const handleSubmit = (transaction) => {
     setTransactions([...transactions, { ...transaction, id: nanoid() }]);
-    setTotal(
-      total +
-        Math.round(
-          transaction.type === transactionType.WITHDRAW
-            ? -transaction.amount / currenciesData[transaction.fee]
-            : transaction.amount / currenciesData[transaction.fee]
-        )
-    );
+    setTotal(0);
   };
 
   return (

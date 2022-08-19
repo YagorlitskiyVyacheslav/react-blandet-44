@@ -13,7 +13,10 @@ import useRedux from "hooks/useRedux";
 import {
   addTransactions,
   getTransactions,
+  setInitTransactions,
+  setTotal,
 } from "store/transactions/transactions";
+import mockTransactions from "mock/transactions";
 
 const TransactionPage = lazy(() => import("pages"));
 const AddTransactionPage = lazy(() => import("pages/add-transaction"));
@@ -22,8 +25,9 @@ const News = lazy(() => import("pages/news"));
 
 const App = () => {
   const [selector, dispatch] = useRedux();
+
   const transactions = selector(getTransactions);
-  const [total, setTotal] = useState(0);
+
   const [currenciesData, setCurrencies] = useState(null);
 
   useEffect(() => {
@@ -32,6 +36,7 @@ const App = () => {
       setCurrencies(response.data.rates);
     };
     getCurrencyData();
+    dispatch(setInitTransactions(mockTransactions.transactions));
   }, []);
 
   useEffect(() => {
@@ -45,19 +50,20 @@ const App = () => {
           )
         );
       }, 0);
-      setTotal(reducedTotal);
+      dispatch(setTotal(reducedTotal));
     }
-  }, [currenciesData, transactions]);
+  }, [currenciesData]);
 
   const handleSubmit = (transaction) => {
     const { type, amount, fee } = transaction;
     dispatch(addTransactions(transaction));
-    setTotal(
-      total +
+    dispatch(
+      setTotal(
         Math.round(
           (transactionType.WITHDRAW === type ? -amount : amount) /
             currenciesData[fee]
         )
+      )
     );
   };
 
@@ -68,12 +74,7 @@ const App = () => {
       <Suspense fallback={<div>Loading</div>}>
         <Routes>
           <Route path={routes.TRANSACTIONS} element={<SharedLayout />}>
-            <Route
-              index
-              element={
-                <TransactionPage total={total} transactions={transactions} />
-              }
-            />
+            <Route index element={<TransactionPage />} />
             <Route
               path={routes.ADD_TRANSACTION}
               element={

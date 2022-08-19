@@ -10,7 +10,7 @@ const transactions = createSlice({
   name: "transactions",
   initialState: init,
   reducers: {
-    setInitTransactions(state, action) {
+    setTransactions(state, action) {
       state.list = action.payload;
     },
     addTransactions(state, action) {
@@ -22,10 +22,10 @@ const transactions = createSlice({
   },
 });
 
-export const { addTransactions, setInitTransactions, setTotal } =
+export const { addTransactions, setTransactions, setTotal } =
   transactions.actions;
 
 export default transactions.reducer;
 
-export const getTransactions = (state) => state.transactions.list;
+export const selectTransactions = (state) => state.transactions.list;
 export const getTotal = (state) => state.transactions.total;

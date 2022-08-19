@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
-import transactionsReducer from './transactions/transactions';
+import transactionsReducer from "./transactions/transactions";
 
 const store = configureStore({
-    reducer: {transactionsReducer},
-})
+  reducer: { transactions: transactionsReducer },
+});
 export default store;

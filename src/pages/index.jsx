@@ -1,4 +1,6 @@
 import { TransactionTable } from "components/TransactionTable";
+import useRedux from "hooks/useRedux";
+import { getTotal, getTransactions } from "store/transactions/transactions";
 import styled from "styled-components";
 
 const Total = styled.p`
@@ -8,11 +10,17 @@ const Total = styled.p`
   margin-left: 30px;
 `;
 
-const TransactionPage = ({ transactions, total }) => (
-  <>
-    <TransactionTable transactions={transactions} />
-    <Total>Total: {total}$</Total>
-  </>
-);
+const TransactionPage = () => {
+  const [selector] = useRedux();
+  const transactions = selector(getTransactions);
+  const total = selector(getTotal);
+
+  return (
+    <>
+      <TransactionTable transactions={transactions} />
+      <Total>Total: {total}$</Total>
+    </>
+  );
+};
 
 export default TransactionPage;

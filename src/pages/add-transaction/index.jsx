@@ -1,7 +1,7 @@
 import { TransactionForm } from "components/TransactionForm";
 
-const AddTransactionPage = ({ handleSubmit, currenciesData }) => (
-  <TransactionForm onSubmit={handleSubmit} currenciesData={currenciesData} />
-);
+const AddTransactionPage = () => {
+  return <TransactionForm />;
+};
 
 export default AddTransactionPage;

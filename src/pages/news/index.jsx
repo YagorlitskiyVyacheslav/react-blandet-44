@@ -8,7 +8,6 @@ const News = () => {
   useEffect(() => {
     const getNews = async () => {
       const response = await newsSearch();
-      console.log(response);
       setNews(response.data.value);
     };
     getNews();

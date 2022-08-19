@@ -4,6 +4,9 @@ import styled from "styled-components";
 import { transactionType } from "constants";
 import { Form } from "./Form/Form";
 import { Card } from "components/ui/Card";
+import useRedux from "hooks/useRedux";
+import { addTransactions, setTotal } from "store/transactions";
+import { selectCurrencies } from "store/currencies";
 
 const ButtonsWrapper = styled.div`
   display: flex;
@@ -11,8 +14,23 @@ const ButtonsWrapper = styled.div`
   margin: 0 0 40px;
 `;
 
-export const TransactionForm = ({ onSubmit, currenciesData }) => {
+export const TransactionForm = () => {
   const [type, setType] = useState(null);
+  const [selector, dispatch] = useRedux();
+  const currenciesData = selector(selectCurrencies);
+
+  const handleSubmit = (transaction) => {
+    const { type, amount, fee } = transaction;
+    dispatch(addTransactions(transaction));
+    dispatch(
+      setTotal(
+        Math.round(
+          (transactionType.WITHDRAW === type ? -amount : amount) /
+            currenciesData[fee]
+        )
+      )
+    );
+  };
 
   return (
     <Card title="Transaction Form">
@@ -39,7 +57,11 @@ export const TransactionForm = ({ onSubmit, currenciesData }) => {
         </PrimaryButton>
       </ButtonsWrapper>
       {type && (
-        <Form type={type} currenciesData={currenciesData} onSubmit={onSubmit} />
+        <Form
+          type={type}
+          currenciesData={currenciesData}
+          onSubmit={handleSubmit}
+        />
       )}
     </Card>
   );

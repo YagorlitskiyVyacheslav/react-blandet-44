@@ -1,5 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { nanoid } from "nanoid";
+import { createSlice } from '@reduxjs/toolkit';
+import { nanoid } from 'nanoid';
+import { toast } from 'react-toastify';
+import { getTransactions } from 'api/transactions/getTransactions';
 
 const init = {
   list: [],
@@ -7,7 +9,7 @@ const init = {
 };
 
 const transactions = createSlice({
-  name: "transactions",
+  name: 'transactions',
   initialState: init,
   reducers: {
     setTransactions(state, action) {
@@ -22,10 +24,25 @@ const transactions = createSlice({
   },
 });
 
+// Actions
 export const { addTransactions, setTransactions, setTotal } =
   transactions.actions;
 
+// Reducer
 export default transactions.reducer;
 
+// Selectors
 export const selectTransactions = (state) => state.transactions.list;
-export const getTotal = (state) => state.transactions.total;
+export const selectTotal = (state) => state.transactions.total;
+
+// Async Actions
+
+export const getTransactionsAsync = () => async (dispatch) => {
+  try {
+    const res = await getTransactions();
+    dispatch(setTransactions(res));
+    console.log(res);
+  } catch (error) {
+    toast.error(error.message);
+  }
+};

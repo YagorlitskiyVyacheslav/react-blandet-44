@@ -1,11 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { TransactionTable } from "components/TransactionTable";
-import { transactionType } from "constants";
-import useRedux from "hooks/useRedux";
-import { useEffect } from "react";
-import { selectCurrencies } from "store/currencies";
-import { getTotal, selectTransactions, setTotal } from "store/transactions";
-import styled from "styled-components";
+import { TransactionTable } from 'components/TransactionTable';
+import { transactionType } from 'constants';
+import useRedux from 'hooks/useRedux';
+import { useEffect } from 'react';
+import { selectCurrencies } from 'store/currencies';
+import {
+  selectTotal,
+  selectTransactions,
+  setTotal,
+  getTransactionsAsync,
+} from 'store/transactions';
+import styled from 'styled-components';
 
 const Total = styled.p`
   width: fit-content;
@@ -18,11 +23,11 @@ const TransactionPage = () => {
   const [selector, dispatch] = useRedux();
 
   const transactions = selector(selectTransactions);
-  const total = selector(getTotal);
+  const total = selector(selectTotal);
   const currenciesData = selector(selectCurrencies);
 
   useEffect(() => {
-    if (currenciesData) {
+    if (currenciesData && transactions.length > 0) {
       const reducedTotal = transactions.reduce((acc, { amount, type, fee }) => {
         return (
           acc +
@@ -34,7 +39,11 @@ const TransactionPage = () => {
       }, 0);
       dispatch(setTotal(reducedTotal));
     }
-  }, [currenciesData]);
+  }, [currenciesData, transactions]);
+
+  useEffect(() => {
+    dispatch(getTransactionsAsync());
+  }, []);
 
   return (
     <>

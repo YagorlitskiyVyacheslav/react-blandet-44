@@ -1,5 +1,5 @@
 import { nanoid } from "nanoid";
-import { getDataFromStorage, saveDataToStorage } from "./StorageData";
+import { getDataFromStorage, saveDataToStorage } from "./storageData";
 
 export const signUpApi = ({ body: { email, password } }) => {
   return new Promise((resolve, reject) => {
@@ -10,7 +10,7 @@ export const signUpApi = ({ body: { email, password } }) => {
       transactions: [],
     };
     setTimeout(() => {
-      if (!getDataFromStorage.some((data) => data.user.email === email)) {
+      if (!getDataFromStorage().some((data) => data.user.email === email)) {
         if (shouldResolve) {
           saveDataToStorage([...getDataFromStorage(), newUser]);
           resolve({ user: newUser.user, token: newUser.token });

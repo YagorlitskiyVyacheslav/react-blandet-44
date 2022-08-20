@@ -23,7 +23,7 @@ const StyledLink = styled(Link)`
   width: fit-content;
 `;
 
-export const LoginForm = ({ onSubmit }) => {
+export const SignUpForm = ({ onSubmit }) => {
   const validationSchema = yup.object().shape({
     email: yup.string().required("This field is required"),
     password: yup.string().required("This field is required"),
@@ -45,12 +45,12 @@ export const LoginForm = ({ onSubmit }) => {
               <FormikInput name="password" type="password" />
             </Label>
             <SubmitButton type="submit" disabled={isSubmitting}>
-              Login
+              Sign up
             </SubmitButton>
           </StyledFormikForm>
         )}
       </Formik>
-      <StyledLink to={routes.SIGNUP}>Go to sign up</StyledLink>
+      <StyledLink to={routes.LOGIN}>Go to login</StyledLink>
     </>
   );
 };

@@ -14,6 +14,7 @@ import mockTransactions from "mock/transactions";
 import { getCurrenciesAsync } from "store/currencies";
 
 const Login = lazy(() => import("pages/login/Login"));
+const SignUp = lazy(() => import("pages/signup/SignUp"));
 const TransactionPage = lazy(() => import("pages"));
 const AddTransactionPage = lazy(() => import("pages/add-transaction"));
 const NotFoundPage = lazy(() => import("pages/404"));
@@ -42,7 +43,7 @@ const App = () => {
             />
             <Route path={routes.NEWS} element={<News />} />
             <Route path={routes.LOGIN} element={<Login />} />
-            {/* <Route path={routes.NEWS} element={<News />} /> */}
+            <Route path={routes.SIGNUP} element={<SignUp />} />
             <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>

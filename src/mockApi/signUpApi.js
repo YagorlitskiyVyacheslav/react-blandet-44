@@ -1,7 +1,7 @@
 import { nanoid } from "nanoid";
 import { getDataFromStorage, saveDataToStorage } from "./StorageData";
 
-export const signUp = ({ body: { email, password } }) => {
+export const signUpApi = ({ body: { email, password } }) => {
   return new Promise((resolve, reject) => {
     const shouldResolve = Math.random() > 0.3;
     const newUser = {
@@ -12,11 +12,8 @@ export const signUp = ({ body: { email, password } }) => {
     setTimeout(() => {
       if (!getDataFromStorage.some((data) => data.user.email === email)) {
         if (shouldResolve) {
-          resolve(
-            saveDataToStorage([...getDataFromStorage(), newUser]).find(
-              (user) => user.token === newUser.token
-            ).transactions
-          );
+          saveDataToStorage([...getDataFromStorage(), newUser]);
+          resolve({ user: newUser.user, token: newUser.token });
         } else {
           reject({ status: 500, message: "Something went wrong" });
         }

@@ -1,4 +1,5 @@
-import { getDataFromStorage, saveDataToStorage } from "./StorageData";
+import { nanoid } from "nanoid";
+import { getDataFromStorage, saveDataToStorage } from "./storageData";
 
 export const addApiTransaction = ({ body, headers: { Authorization } }) => {
   return new Promise((resolve, reject) => {
@@ -12,7 +13,10 @@ export const addApiTransaction = ({ body, headers: { Authorization } }) => {
                 if (user.token === Authorization) {
                   return {
                     ...user,
-                    transactions: [body, ...user.transactions],
+                    transactions: [
+                      { ...body, id: nanoid() },
+                      ...user.transactions,
+                    ],
                   };
                 }
                 return user;

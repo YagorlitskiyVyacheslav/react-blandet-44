@@ -5,7 +5,7 @@ import { transactionType } from "constants";
 import { Form } from "./Form/Form";
 import { Card } from "components/ui/Card";
 import useRedux from "hooks/useRedux";
-import { addTransactions, setTotal } from "store/transactions";
+import { addTransactionAsync, setTotal } from "store/transactions";
 import { selectCurrencies } from "store/currencies";
 
 const ButtonsWrapper = styled.div`
@@ -21,7 +21,7 @@ export const TransactionForm = () => {
 
   const handleSubmit = (transaction) => {
     const { type, amount, fee } = transaction;
-    dispatch(addTransactions(transaction));
+    dispatch(addTransactionAsync(transaction));
     dispatch(
       setTotal(
         Math.round(

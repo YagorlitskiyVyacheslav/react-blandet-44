@@ -1,9 +1,10 @@
-import { getDataFromStorage } from "./StorageData";
+import { getDataFromStorage } from "./storageData";
 
 export const loginApi = ({ body: { email, password } }) => {
+  console.log({ email, password });
   return new Promise((resolve, reject) => {
     const shouldResolve = Math.random() > 0.3;
-    const currentUser = getDataFromStorage.find(
+    const currentUser = getDataFromStorage().find(
       (data) => data.user.email === email
     );
     setTimeout(() => {

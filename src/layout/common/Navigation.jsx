@@ -41,6 +41,11 @@ export const Navigation = () => {
         <NavItem>
           <StyledNavLink to={routes.NEWS}>News</StyledNavLink>
         </NavItem>
+        <NavItem>
+          <StyledNavLink to={routes.LOGIN}>Login</StyledNavLink>
+        </NavItem>        <NavItem>
+          <StyledNavLink to={routes.SIGNUP}>Sign Up</StyledNavLink>
+        </NavItem>
       </NavList>
     </nav>
   );

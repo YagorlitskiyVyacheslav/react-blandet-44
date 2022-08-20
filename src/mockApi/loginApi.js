@@ -1,6 +1,6 @@
 import { getDataFromStorage } from "./StorageData";
 
-export const login = ({ body: { email, password } }) => {
+export const loginApi = ({ body: { email, password } }) => {
   return new Promise((resolve, reject) => {
     const shouldResolve = Math.random() > 0.3;
     const currentUser = getDataFromStorage.find(

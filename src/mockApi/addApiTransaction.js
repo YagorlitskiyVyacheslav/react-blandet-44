@@ -1,6 +1,6 @@
 import { getDataFromStorage, saveDataToStorage } from "./StorageData";
 
-export const addTransaction = ({ transaction, headers: { Authorization } }) => {
+export const addApiTransaction = ({ body, headers: { Authorization } }) => {
   return new Promise((resolve, reject) => {
     const shouldResolve = Math.random() > 0.3;
     setTimeout(() => {
@@ -12,7 +12,7 @@ export const addTransaction = ({ transaction, headers: { Authorization } }) => {
                 if (user.token === Authorization) {
                   return {
                     ...user,
-                    transactions: [transaction, ...user.transactions],
+                    transactions: [body, ...user.transactions],
                   };
                 }
                 return user;

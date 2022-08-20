@@ -1,12 +1,4 @@
-import { loginApi } from "mockApi/loginApi";
-import { toast } from "react-toastify";
+import { signUpApi } from "mockApi/signUpApi";
 import { api } from "./api";
 
-export const signUp = async (data) => {
-  try {
-    const res = await api.post(loginApi, data);
-    return res;
-  } catch (error) {
-    toast.error(error.message);
-  }
-};
+export const signUp = async (data) => await api.post(signUpApi, data);

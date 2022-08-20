@@ -5,7 +5,7 @@ const data = [
   {
     token: "random-roken",
     user: {
-      email: "Mark",
+      email: "mark@mail.com",
       password: "password",
     },
     transactions: [
